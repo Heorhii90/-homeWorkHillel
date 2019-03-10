@@ -19,20 +19,19 @@ let poll = [
     }
 ];
 
+Hellow
 
 function questions(numberQuestion) {
-    if ((poll[numberQuestion].type) == 'prompt') {
-        answerPoll = prompt(poll[numberQuestion].question);
-        if (answerPoll == poll[numberQuestion].answer)
-            points += 10;
-    } else {
-        answerPoll = confirm(poll[numberQuestion].question);
-        if (answerPoll == poll[numberQuestion].answer)
-            points += 10;
+    (poll[numberQuestion].type) == 'prompt'
+    if(answerPoll = prompt(poll[numberQuestion].question)){
+    (answerPoll == poll[numberQuestion].answer);      
+    else {
+        answerPoll = confirm(poll[numberQuestion].question)
+        answerPoll == poll[numberQuestion].answer);
     }
-    return points;
 }
 for (let i = 0; i < poll.length; i++) {
     questions(i);
+    points += 10;
 }
 alert('Ваш результат: ' + points + ' баллов');
