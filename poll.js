@@ -1,3 +1,4 @@
+"use strict"
 
 let points = 0;
 let answerPoll;
@@ -19,19 +20,33 @@ let poll = [
     }
 ];
 
-Hellow
 
-function questions(numberQuestion) {
-    (poll[numberQuestion].type) == 'prompt'
-    if(answerPoll = prompt(poll[numberQuestion].question)){
-    (answerPoll == poll[numberQuestion].answer);      
-    else {
-        answerPoll = confirm(poll[numberQuestion].question)
-        answerPoll == poll[numberQuestion].answer);
+function questionsPoll(questions) {
+    switch (questions.type) {
+        case 'prompt':
+            answerPoll = prompt(questions.question, '');
+
+            if (!validation(answerPoll)) {
+                alert('Ответ должен быть числом');
+                return questionsPoll(questions);
+            }
+            break;
+
+        case 'confirm':
+            answerPoll = confirm(questions.question);
+            break;
     }
+    return answerPoll == questions.answer;
 }
+
+
+function validation(value) {
+    return !(isNaN(value) || value === null || value === '');
+}
+
+
 for (let i = 0; i < poll.length; i++) {
-    questions(i);
-    points += 10;
+    points += questionsPoll(poll[i]) ? 10 : 0;
 }
+
 alert('Ваш результат: ' + points + ' баллов');
