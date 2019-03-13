@@ -26,11 +26,11 @@ function calculate(operandA, operandB, action) {
     if (action === '+') {
         result = Number(operandA) + Number(operandB);
     } else if (action === '-') {
-        result = Number(operandA) - Number(operandB);
+        result = operandA - operandB;
     } else if (action === '*') {
-        result = Number(operandA) * Number(operandB);
+        result = operandA * NumberoperandB;
     } else if (action === '/') {
-        result = Number(operandA) / Number(operandB);
+        result = operandA / operandB;
     }
     return result;
 }
