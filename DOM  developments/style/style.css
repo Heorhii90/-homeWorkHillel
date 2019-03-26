@@ -1,0 +1,29 @@
+ul {
+    border: 1px dashed brown;
+    width: 30%;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+
+li {
+    background-color: aqua;
+}
+
+li:hover {
+    opacity: 0.7;
+}
+
+button {
+    width: 200px;
+    height: 50px;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: brown;
+}
+
+button:hover {
+    background-color: crimson;
+}
