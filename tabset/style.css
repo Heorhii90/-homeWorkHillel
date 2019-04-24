@@ -1,0 +1,43 @@
+#container {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translate(-30%);
+
+}
+
+.tabset-heading {
+    display: table-cell;
+    color: green;
+    background-color: aqua;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 5% 0;
+    cursor: pointer;
+}
+
+.tabset-heading.open{
+    background-color: blue;
+}
+
+.tabset-heading:hover{
+    background-color: blue;
+    color: white;
+    border: 2px dashed black;
+}
+
+.tabset-body {
+    display: none;
+}
+
+.tabset-body.open {
+    display: block;
+    position: relative;
+    top: 43px;
+    right: 210px;
+    background-color: turquoise;
+    width: 208px;
+    height: 110px;
+    color: white;
+    font-size: 25px;
+}
