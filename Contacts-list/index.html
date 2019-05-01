@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>DOM Events</title>
+    <title>Contact List</title>
     <link rel="stylesheet" href="style/normalize.css">
     <link rel="stylesheet" href="style/skeleton.css">
     <link rel="stylesheet" href="style/style.css">
@@ -13,40 +13,22 @@
 </head>
 
 <body>
-    <table class="u-full-width">
+    <table class="u-full-width" id="usersListTable">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Phone</th>
-                <th>Age</th>
-                <th>Clear</th>
+                <th>Email</th>
             </tr>
         </thead>
-        <tbody id="contactsList"></tbody>
-        <tfoot>
-            <tr>
-                <td>
-                    <input type="text" id="nameInput">
-                </td>
-                <td>
-                    <input type="text" id="phoneInput">
-                </td>
-                <td>
-                    <input type="number" id="ageInput">
-                </td>
-            </tr>
-            <td colspan="3" class="table-footer">
-                <button id="addContactBtn">Add Contact</button>
-            </td>
-        </tfoot>
+        <tbody></tbody>
     </table>
-    <script type="text/template" id="contactTemplete">
-        <td>{{name}}</td>
-        <td>{{phone}}</td>
-        <td>{{age}}</td>
-        <td>
-            <button></button>
-        </td>
+    <script type="text/template" id="userTemplate">
+        <tr data-user-id="{{id}}">
+            <td>{{name}}</td>
+            <td>{{phone}}</td>
+            <td>{{email}}</td>
+        </tr>
     </script>
 </body>
 

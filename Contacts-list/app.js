@@ -1,52 +1,47 @@
-const addContactBtn = document.getElementById('addContactBtn');
-const contactsList = document.getElementById('contactsList')
-const contactNameInput = document.getElementById('nameInput');
-const contactPhoneInput = document.getElementById('phoneInput');
-const contactAgeInput = document.getElementById('ageInput');
-const contactTemplete = document.getElementById('contactTemplete').innerHTML;
+'use strict';
 
+const URL = 'https://jsonplaceholder.typicode.com/users';
 
-contactsList.addEventListener('click', onAddDelBtnClick);
-addContactBtn.addEventListener('click', onAddContactButtonClick);
+var request = function () {
+  var xhr = new XMLHttpRequest();
+  return function (method, url, callback) {
+    xhr.onload = function () {
+      callback(JSON.parse(xhr.responseText));
+    };
+    xhr.open(method, url);
+    xhr.send();
+  };
+}();
 
+class Users {
 
-function delBtnClick(e){
-  if(e.tagName === "BUTTON"){
-    e.parentNode.parentNode.remove();
+  constructor(el) {
+    this.el = el;
+    this.init();
+  }
+
+  init() {
+    request('GET', URL, (resp) => { this.toRenderContactList(resp) });
+    this.el.addEventListener('click', this.onClick);
+  }
+
+  toRenderContactList(resp) {
+    const userTemplate = document.getElementById('userTemplate').innerHTML;
+    let dataUser = '';
+
+    console.log(resp)
+    resp.map((item) => {
+      dataUser += userTemplate
+        .replace('{{name}}', item.name)
+        .replace('{{phone}}', item.phone)
+        .replace('{{email}}', item.email)
+
+    })
+    this.el.children[1].innerHTML = dataUser;
   }
 }
 
-function onDelBtnClick(){
-  onDelBtnClick(event.target);
-}
-
-function submitContact() {
-  const contact = {
-    name: contactNameInput.value,
-    phone: contactPhoneInput.value,
-    age: contactAgeInput.value
-  }
-  addContact(contact);
-  resetContactForm();
-}
-
-function onAddContactButtonClick() {
-  submitContact();
-}
-
-function addContact(contact){
-  const contactTr = document.createElement('tr');
-  contactTr.innerHTML = contactTemplete
-    .replace('{{name}}', contact.name)
-    .replace('{{phone}}', contact.phone)
-    .replace('{{age}}', contact.age);
-
-  contactsList.appendChild(contactTr);
-}
-
-function resetContactForm() {
-  contactNameInput.value = '';
-  contactPhoneInput.value = '';
-  contactAgeInput.value = '';
-}
+const userList = new Users(
+  document.getElementById('usersListTable')
+);
 
