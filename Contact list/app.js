@@ -92,7 +92,7 @@ function toggleTaskState(el) {
     const contact = contacts.find((el) => { return el.id == id });
 
     if (contact.isDone = !contact.isDone) {
-        console.log('OK')
+        
     }
 
     return fetch(CONTACTS_URL + '/' + contact.id, {
