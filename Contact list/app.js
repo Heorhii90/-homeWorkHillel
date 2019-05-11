@@ -73,14 +73,14 @@ function addContact(contacts) {
     });
 }
 
-function onContactsListClick(event) {
+function onDeleteContactsListClick(event) {
     if (event.target.tagName === 'BUTTON') {
         deleteContact(event.target.parentNode.parentNode)
             .then(fetchContacts);
     }
 }
 
-function onDeleteContactsListClick(event) {
+function onContactsListClick(event) {
     if (event.target.parentNode.classList.contains('contacts')) {
         toggleTaskState(event.target.parentNode)
             .then(fetchContacts);
