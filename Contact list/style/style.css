@@ -1,3 +1,23 @@
-.contacts.done {
+form {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    border: 1px solid green;
+}
+
+.positin {
+    position: relative;
+    right: 49px;
+    font-size: 30px;
+}
+
+#popup{
+    display: none;
+}
+  
+.popup {
+    display: block;
     background-color: green;
+    position: fixed;
+    width: 100%;
 }

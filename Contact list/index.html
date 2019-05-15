@@ -2,49 +2,79 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Contacts</title>
-    <link rel="stylesheet" href="style/normalize.css">
-    <link rel="stylesheet" href="style/skeleton.css">
-    <link rel="stylesheet" href="style/style.css">
-    <script src="./app.js" async></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style/style.css" type="text/css" />
+    <script async src="app.js"></script>
+    <title>Contact list</title>
 </head>
 
 <body>
-    <table class="u-full-width">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Phone</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="contactsList"></tbody>
-        <tfoot>
-            <tr>
-                <td>
-                    <input type="text" id="nameInput">
-                </td>
-                <td>
-                    <input type="text" id="surnameInput">
-                </td>
-                <td>
-                    <input type="number" id="phoneInput">
-                </td>
-                <td><button id="addContactBtn">Add Contact</button></td>
-            </tr>
-        </tfoot>
-    </table>
+    <form id="contactForm">
+        <table class="u-full-width">
+            <thead>
+                <tr>
+                    <th class="positin">Name</th>
+                    <th class="positin">Surname</th>
+                    <th class="positin">Phone</th>
+                    <th>Edit</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="contactsList"></tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <input type="text" id="nameInput" name="nameInput" />
+                    </td>
+                    <td>
+                        <input type="text" id="surnameInput" name="surnameInput" />
+                    </td>
+                    <td>
+                        <input type="text" id="phoneInput" name="phoneInput" />
+                    </td>
+                    <td>
+                        <input type="submit" value="Add Contact" />
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </form>
     <script type="text/template" id="contactTemplate">
-        <tr data-contact-id='{{id}}' class='contacts {{class}}'>
-            <td>{{name}}</td>
-            <td>{{surname}}</td>
-            <td>{{phone}}</td>
-            <td><button id="btnDelete" type="button">Delete Contact</button></td>
-        </tr>
+      <tr data-contact-id="{{id}}" class="{{class}}">
+          <td>{{name}}</td>
+          <td>{{surname}}</td>
+          <td>{{phone}}</td>
+          <td><button class = "btnEdit" type="button">Edit</button></td>
+          <td><button class = "btnDel" type="button">Delete</button></td>
+      </tr>
+      <tr id = "popup" class = "contactPopup">
+        <div class = "contactPopupUser">
+          <td>{{name}}</td>
+          <td>{{surname}}</td>
+          <td>{{phone}}</td>
+        </div>
+      </tr>
+    </script>
+    <script type="text/template" id="editContactTemplate">
+      <tr data-contact-id="{{id}}" class="{{class}}">
+        <td>
+          <input type="text" id = "editedContactName" value = {{name}} />
+        </td>
+        <td>
+          <input type="text" id = "editedContactSurname" value = {{surname}} />
+        </td>
+        <td>
+          <input type="tel" id = "editedContactPhone" value = {{phone}} />
+        </td>
+        <td>
+          <button class = "btnCancel" type="button">Cancel</button>
+        </td>
+        <td>
+          <button class = "btnSave" type="button">Save</button>
+        </td>
+      </tr>
     </script>
 </body>
 

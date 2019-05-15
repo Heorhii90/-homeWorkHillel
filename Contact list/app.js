@@ -1,120 +1,150 @@
-const CONTACTS_URL = 'http://fep-app.herokuapp.com/api/contacts';
+'use strict';
 
-const addContactBtn = document.getElementById('addContactBtn');
+const URL = 'http://fep-app.herokuapp.com/api/contacts';
+const contactForm = document.getElementById('contactForm');
 const contactsList = document.getElementById('contactsList');
 const contactNameInput = document.getElementById('nameInput');
 const contactSurnameInput = document.getElementById('surnameInput');
 const contactPhoneInput = document.getElementById('phoneInput');
+const contactEmailInput = document.getElementById('emailInput');
 const contactTemplate = document.getElementById('contactTemplate').innerHTML;
-const deleteContactBtn = document.getElementById('btnDelete');
+const editContactTemplate = document.getElementById('editContactTemplate').innerHTML;
 
 let contacts = [];
 
-init();
+init()
 
 function init() {
-    addContactBtn.addEventListener('click', onAddContactBtnClick);
+    contactForm.addEventListener('submit', contactSubmit);
     contactsList.addEventListener('click', onContactsListClick);
-    contactsList.addEventListener('click', onDeleteContactsListClick);
 
     fetchContacts();
 }
 
 function fetchContacts() {
-    return fetch(CONTACTS_URL)
+    return fetch(URL)
         .then((resp) => resp.json())
-        .then(setTasks)
-        .then(renderContacts)
+        .then(setContacts)
+        .then(renderContacts);
 }
 
-function setTasks(data) {
-    contacts = data;
-    return data;
-
+function setContacts(data) {
+    return contacts = data
 }
 
 function renderContacts(data) {
-    console.log(data)
     contactsList.innerHTML = data.map((el) => {
         return contactTemplate
+            .replace('{{id}}', el.id)
             .replace('{{name}}', el.name)
             .replace('{{surname}}', el.surname)
             .replace('{{phone}}', el.phone)
-            .replace('{{id}}', el.id)
-            .replace('{{class}}', el.isDone ? 'done' : '')
+            .replace('{{email}}', el.email)
+            .replace('{{class}}', el.is_active ? 'active' : '')
     }).join('\n');
-
 }
 
-function onAddContactBtnClick(event) {
-    event.preventDefault();
+function contactSubmit(e) {
+    e.preventDefault();
 
     submitContact();
 }
 
-function submitContact() {
-    const contacts = {
-        name: contactNameInput.value, isDone: false,
-        phone: contactPhoneInput.value, isDone: false,
-        surname: contactSurnameInput.value, isDone: false
-    };
-
-    addContact(contacts).then(fetchContacts);
-}
-
-function addContact(contacts) {
-    return fetch(CONTACTS_URL, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(contacts)
-    });
-}
-
-function onDeleteContactsListClick(event) {
-    if (event.target.tagName === 'BUTTON') {
-        deleteContact(event.target.parentNode.parentNode)
-            .then(fetchContacts);
-    }
-}
-
 function onContactsListClick(event) {
-    if (event.target.parentNode.classList.contains('contacts')) {
-        toggleTaskState(event.target.parentNode)
+    if (event.target.classList.contains('btnEdit')) {
+        editContact(event.target.parentNode.parentNode)
+    } else if (event.target.classList.contains('btnDel')) {
+        removeContact(event.target.parentNode.parentNode.dataset.contactId)
+            .then(fetchContacts);
+    } else if (event.target.classList.contains('btnCancel')) {
+        fetchContacts();
+    } else if (event.target.classList.contains('btnSave')) {
+        saveContact(event.target.parentNode.parentNode);
+    } else if (event.target.tagname = 'TD') {
+        togglePopupState(event.target.parentNode);
+    } else {
+        toggleContactState(event.target.parentNode.dataset.contactId)
             .then(fetchContacts);
     }
 }
 
-function toggleTaskState(el) {
-    const id = el.dataset.contactId;
-    const contact = contacts.find((el) => { return el.id == id });
+function togglePopupState(el) {
+    el.classList.toggle('popup')
+}
 
-    if (contact.isDone = !contact.isDone) {
-        
-    }
+function editContact(el) {
+    let id = el.dataset.contactId;
 
-    return fetch(CONTACTS_URL + '/' + contact.id, {
+    let contact = contacts.find((cont) => cont.id == id);
+    el.innerHTML = editContactTemplate
+        .replace('{{id}}', contact.id)
+        .replace('{{name}}', contact.name)
+        .replace('{{surname}}', contact.surname)
+        .replace('{{phone}}', contact.phone)
+        .replace('{{state}}', contact.is_active)
+}
+
+function saveContact(el) {
+    let id = el.dataset.contactId;
+
+    let contact = contacts.find((cont) => cont.id == id);
+
+    contact.name = el.id.value;
+    contact.surname = el.id.value;
+    contact.phone = el.id.value;
+
+    rewriteContact(contact);
+    fetchContacts();
+}
+
+function removeContact(id) {
+    return fetch(URL + '/' + id, { method: 'DELETE' });
+}
+
+function toggleContactState(id) {
+    const contact = contacts.find((cont) => cont.id == id);
+
+    contact.is_active = !contact.is_active;
+    return rewriteContact(contact);
+}
+
+function rewriteContact(contact) {
+    return fetch(URL + '/' + contact.id, {
         method: "PUT",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(contact)
-    })
+    }).then(fetchContacts);
 }
 
-function deleteContact(el) {
-    const id = el.dataset.contactId;
-    const contact = contacts.find((el) => { return el.id == id });
+function submitContact() {
+    const contact = {
+        name: contactNameInput.value,
+        surname: contactSurnameInput.value,
+        phone: contactPhoneInput.value,
+        is_active: true
+    }
+    addContact(contact)
+        .then(fetchContacts);
 
-    return fetch(CONTACTS_URL + '/' + contact.id, {
-        method: "DELETE",
+    resetContactForm();
+}
+
+function addContact(contact) {
+    return fetch(URL, {
+        method: "POST",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(contact)
-    })
+    });
+}
+
+function resetContactForm() {
+    contactNameInput.value = '';
+    contactSurnameInput.value = '';
+    contactPhoneInput.value = '';
 }
