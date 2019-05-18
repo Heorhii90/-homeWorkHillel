@@ -1,0 +1,13 @@
+.form {
+    display: none;
+}
+
+.submit {
+    text-align: center;
+}
+
+form input, textarea {
+    display: block;
+    width: 30%;
+    margin: auto;
+}
