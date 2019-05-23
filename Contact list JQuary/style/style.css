@@ -1,0 +1,10 @@
+.ui-dialog {
+    background-color: wheat;
+    padding: 20px;
+    color: black;
+    border-radius: 10%;
+}
+
+.ui-dialog button {
+    color: black;
+}
