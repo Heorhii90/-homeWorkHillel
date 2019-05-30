@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+  <link rel="stylesheet" href="style/style.css">
+  <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="index.js"></script>
+  <title>Search users by GitHub</title>
+</head>
+
+<body>
+
+  <header>
+    <label for="searchUsers">
+      <input id="searchUsers" placeholder="SEARCH" required>
+    </label>
+  </header>
+
+  <main class="dataUserGitHub"></main>
+
+  <script type="text/template" id="userTemplateGitHub">
+    <div class="position">
+      <img src="{{avatar}}" alt="avatar">
+      <div class="data"><p>{{name}}</p>
+      <a href="{{url}}">({{login}})</a>
+      <p><span>{{repositories}}</span><span> Repositories</span></p>
+      <p><span>{{followers}}</span><span> Folowers</span></p>
+      <p><span>{{date_of_registration}}</span><span>Registration</span></p>
+    </div>
+    </div>
+</script>
+
+</body>
+
+</html>

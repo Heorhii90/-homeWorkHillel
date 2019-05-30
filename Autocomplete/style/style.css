@@ -1,0 +1,30 @@
+header {
+    text-align: center;
+}
+
+#searchUsers {
+    width: 30%;
+    background: azure;
+    text-align: center;
+}
+
+.dataUserGitHub {
+    text-align: center;
+}
+
+.dataUserGitHub img {
+    height: 167px;
+}
+
+.position {
+    display: flex;
+    justify-content: center;
+    border: 1px solid green;
+    width: 30%;
+    margin: auto;
+}
+
+.data {
+    position: relative;
+    left: 10px;
+}
