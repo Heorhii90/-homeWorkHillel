@@ -1,0 +1,41 @@
+body {
+    width: 50%;
+    margin: auto;
+    border: 5px solid green;
+    background-color: darkseagreen;
+}
+
+.u-full-width {
+    margin: 0 auto;
+}
+
+input {
+    width: 99%;
+}
+
+input:focus {
+    background-color: greenyellow;
+}
+
+td {
+    width: 50%;
+    color: white;
+}
+
+.notFilled-todo {
+    background-color: olive;
+}
+
+.fild-todo {
+    background-color: rgb(11, 56, 11);
+}
+
+button[delete-button], #addButton {
+    background-color: green;
+    border: 1px solid green;
+    color: white;
+}
+
+#addButton {
+    padding: 2%;
+}
