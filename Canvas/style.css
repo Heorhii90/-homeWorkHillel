@@ -1,0 +1,16 @@
+body {
+    text-align: center;
+    background-color: brown;
+}
+
+label {
+    font-weight: 900;
+    font-size: 2em;
+    margin-left: 3%;
+}
+
+#canvas {
+    border: 5px solid black;
+    display: block;
+    margin: auto;
+}
